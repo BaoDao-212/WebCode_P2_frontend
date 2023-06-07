@@ -105,7 +105,9 @@ import BlockViewer from '@/components/BlockViewer.vue';
 
 import '@/assets/styles.scss';
 import { setupStore } from './stores';
-
+import RunCode from './components/RunCode.vue';
+import { basicSetup } from 'codemirror';
+import VueCodemirror from 'vue-codemirror';
 const app = createApp(App);
 setupStore(app);
 app.use(router);
@@ -118,7 +120,17 @@ app.directive('tooltip', Tooltip);
 app.directive('badge', BadgeDirective);
 app.directive('ripple', Ripple);
 app.directive('styleclass', StyleClass);
-
+app.use(VueCodemirror, {
+    // optional default global options
+    autofocus: true,
+    disabled: false,
+    indentWithTab: true,
+    tabSize: 2,
+    placeholder: 'Code goes here...',
+    extensions: [basicSetup]
+    // ...
+});
+app.component('RunCode', RunCode);
 app.component('CodeHighlight', CodeHighlight);
 app.component('BlockViewer', BlockViewer);
 

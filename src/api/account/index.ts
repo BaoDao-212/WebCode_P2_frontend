@@ -8,9 +8,9 @@ export function updateAccountInfo(data: any) {
     });
 }
 
-export function updatePassword(data: any) {
+export function updatePassword(data: API.ChangePasswordParams) {
     return request({
-        url: 'account/password',
+        url: 'account/change-password',
         method: 'post',
         data
     });
@@ -27,5 +27,12 @@ export function logout() {
     return request({
         url: 'account/logout',
         method: 'post'
+    });
+}
+export function register(data: API.RegisterParams) {
+    return request({
+        url: 'auth/register',
+        method: 'post',
+        data
     });
 }

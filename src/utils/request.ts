@@ -13,8 +13,6 @@ export interface RequestOptions {
 const UNKNOWN_ERROR = 'Unknown error, please try again';
 // const IS_PROD = ['production', 'prod'].includes(import.meta.env.NODE_ENV);
 const baseApiUrl = import.meta.env.VITE_APP_BASE_API;
-console.log(baseApiUrl);
-
 const service = axios.create({
     // baseURL: baseApiUrl,
     timeout: 6000
@@ -82,7 +80,6 @@ export const request = async <T = any>(config: AxiosRequestConfig, options: Requ
     try {
         const { successMsg, errorMsg, isGetDataDirectly = true } = options;
         const fullUrl = `${baseApiUrl + config.url}`;
-        console.log(fullUrl);
 
         config.url = uniqueSlash(fullUrl);
         const res = await service.request(config);

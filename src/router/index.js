@@ -1,5 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import AppLayout from '@/layout/AppLayout.vue';
+import { createRouterGuards } from './route-guard';
+import { whiteNameList } from './contant';
 
 const router = createRouter({
     history: createWebHashHistory(),
@@ -145,7 +147,7 @@ const router = createRouter({
         },
         {
             path: '/landing',
-            name: 'landing',
+            name: 'Landing',
             component: () => import('@/views/pages/Landing.vue')
         },
         {
@@ -156,8 +158,13 @@ const router = createRouter({
 
         {
             path: '/auth/login',
-            name: 'login',
+            name: 'Login',
             component: () => import('@/views/pages/auth/Login.vue')
+        },
+        {
+            path: '/auth/register',
+            name: 'Register',
+            component: () => import('@/views/pages/auth/register.vue')
         },
         {
             path: '/auth/access',
@@ -171,5 +178,5 @@ const router = createRouter({
         }
     ]
 });
-
+createRouterGuards(router, whiteNameList);
 export default router;
