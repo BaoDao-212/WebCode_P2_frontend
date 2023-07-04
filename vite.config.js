@@ -6,21 +6,24 @@ export default defineConfig({
     resolve: {
         alias: {
             '@': fileURLToPath(new URL('./src', import.meta.url))
-        },
+        }
     },
     optimizeDeps: {
-        include: ['@vue/runtime-core'],
+        include: ['@vue/runtime-core']
     },
     esbuild: {
         jsxFactory: 'h',
         jsxFragment: 'Fragment',
-        jsxInject: `import { h } from 'vue';`,
+        jsxInject: `import { h } from 'vue';`
     },
     server: {
         port: 3000,
+        watch: {
+            usePolling: true
+        }
     },
     build: {
         outDir: 'dist',
-        assetsDir: '',
-    },
+        assetsDir: ''
+    }
 });

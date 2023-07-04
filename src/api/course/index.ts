@@ -7,9 +7,9 @@ export function createCourse(data: API.CreateCouseInput) {
         data
     });
 }
-export function listCourseProfessor() {
-    return request<BaseResponse<API.ListCourseOutput>>({
-        url: 'course/professor/list',
-        method: 'get'
-    });
-}
+// export function listCourseProfessor() {
+//     return request<BaseResponse<API.ListCourseOutput>>({
+//         url: 'course/professor/list',
+//         method: 'get'
+//     });
+// }
