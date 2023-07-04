@@ -8,7 +8,6 @@ import { EditorState } from '@codemirror/state';
 import { completeFromList } from '@codemirror/autocomplete';
 import { Codemirror } from 'vue-codemirror';
 import { useCodeStore } from '@/stores/code.ts';
-import { language } from '@codemirror/language';
 export default defineComponent({
     components: {
         Codemirror
@@ -106,23 +105,38 @@ int main() {
             @focus="log('focus', $event)"
             @blur="log('blur', $event)"
         />
-        <Button class="w-50 p-2 m-3" label="Submit" @click="submitCode" outlined />
-        <div class="card output-card">
-            <h3>Output</h3>
-            <div class="output dark-blue">
-                <pre>{{ output.stdout }}</pre>
+        <div class="flex flex-row">
+            <Button class="px-4 py-3 m-3" label="Run Code" @click="submitCode" outlined />
+            <Button class="px-4 py-3 m-3" label="Submit Code" @click="submitCode" outlined />
+        </div>
+        <div class="card output-card flex flex-row">
+            <div class="col-12 xl:col-6">
+                <h3>Input</h3>
+                <div class="output dark-blue">
+                    <pre>{{ output.stdout }}</pre>
+                </div>
+            </div>
+            <div v-if="output.exitCode == 0" class="col-12 xl:col-6">
+                <h3>Output</h3>
+                <div class="output dark-blue">
+                    <pre>{{ output.stdout }}</pre>
+                </div>
             </div>
         </div>
-        <div class="card error-card dark-blue">
+        <div v-if="output.exitCode == 1" class="card error-card dark-blue">
             <h3>Error</h3>
             <div class="error-message">
                 <pre>{{ output.stderr }}</pre>
+            </div>
+            <h3>Error Type</h3>
+            <div class="error-message">
+                <pre>{{ output.errorType }}</pre>
             </div>
         </div>
     </div>
 </template>
 
-<style>
+<style lang="less" scoped>
 .language-select {
     margin-bottom: 10px;
 }

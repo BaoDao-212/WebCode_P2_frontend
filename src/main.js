@@ -108,14 +108,21 @@ import { setupStore } from './stores';
 import RunCode from './components/RunCode.vue';
 import { basicSetup } from 'codemirror';
 import VueCodemirror from 'vue-codemirror';
+import vue3GoogleLogin from 'vue3-google-login';
+import { QuillEditor } from '@vueup/vue-quill';
+import '@vueup/vue-quill/dist/vue-quill.snow.css';
 const app = createApp(App);
 setupStore(app);
 app.use(router);
 app.use(PrimeVue, { ripple: true });
 app.use(ToastService);
 app.use(DialogService);
+app.component('QuillEditor', QuillEditor);
 app.use(ConfirmationService);
-
+console.log(import.meta.env.VITE_APP_BASE_GOOGLE_LOGIN);
+app.use(vue3GoogleLogin, {
+    clientId: import.meta.env.VITE_APP_BASE_GOOGLE_LOGIN
+});
 app.directive('tooltip', Tooltip);
 app.directive('badge', BadgeDirective);
 app.directive('ripple', Ripple);

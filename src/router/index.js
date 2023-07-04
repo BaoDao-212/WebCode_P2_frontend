@@ -11,6 +11,26 @@ const router = createRouter({
             component: AppLayout,
             children: [
                 {
+                    path: '/course/create',
+                    name: 'Create Course',
+                    component: () => import('@/views/professor/course/CreateCourse.vue')
+                },
+                {
+                    path: '/course/professor/list',
+                    name: 'List Course',
+                    component: () => import('@/views/professor/course/ListCourse.vue')
+                },
+                {
+                    path: '/lesson/create/:id',
+                    name: 'CreateLesson',
+                    component: () => import('@/views/professor/lesson/createLesson.vue')
+                },
+                {
+                    path: '/ide/code',
+                    name: 'IDE',
+                    component: () => import('@/views/code/Exercise.vue')
+                },
+                {
                     path: '/',
                     name: 'dashboard',
                     component: () => import('@/views/Dashboard.vue')

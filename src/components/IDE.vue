@@ -1,29 +1,9 @@
 <script setup>
-import { reactive, ref, watch } from 'vue';
+import { onMounted, reactive, ref, watch } from 'vue';
 import { useLayout } from '@/layout/composables/layout';
-
+import { HighCode } from 'vue-highlight-code';
+import 'vue-highlight-code/dist/style.css';
 const { isDarkTheme } = useLayout();
-const lineData = reactive({
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    datasets: [
-        {
-            label: 'First Dataset',
-            data: [65, 59, 80, 81, 56, 55, 40],
-            fill: false,
-            backgroundColor: '#2f4860',
-            borderColor: '#2f4860',
-            tension: 0.4
-        },
-        {
-            label: 'Second Dataset',
-            data: [28, 48, 40, 19, 86, 27, 90],
-            fill: false,
-            backgroundColor: '#00bb7e',
-            borderColor: '#00bb7e',
-            tension: 0.4
-        }
-    ]
-});
 
 const lineOptions = ref(null);
 
@@ -98,14 +78,26 @@ watch(
     },
     { immediate: true }
 );
+const H = ref(`public class HelloWorld {
+  public static void main(String[] args) {
+    System.out.println("Hello, world!");
+  }
+}`);
+onMounted(() => {
+    console.log(H.value.modelValue);
+});
 </script>
 
 <template>
     <div class="grid">
         <div class="col-12 xl:col-5">
             <div class="card">
-                <h5>Lý thuyết</h5>
-                <Chart type="line" :data="lineData" :options="lineOptions" />
+                <h3 class="font-bold">Lý thuyết</h3>
+                <div class="font-bold text-gray-900">
+                    Đây là bài đầu tiên trong loạt bài hướng dẫn học lập trình C++ cho người mới bắt đầu, mục tiêu của bài này là giúp bạn làm quen với hệ thống và cài đặt môi trường lập trình C++. Nếu bạn đã quen với hệ thống và có môi trường lập
+                    trình C++ trên máy của mình thì có thể bỏ qua bài hướng dẫn này bằng cách bấm nút CHẠY THỬ sau đó bấm NỘP BÀI bên góc phải phía dưới của màn hình.
+                </div>
+                <HighCode class="code my-3" :codeValue="H" :theme="dark" lang="" width="430px" :maxHeight="height"></HighCode>
             </div>
         </div>
         <div class="col-12 xl:col-7 border-round">
@@ -113,3 +105,4 @@ watch(
         </div>
     </div>
 </template>
+<style></style>

@@ -12,6 +12,17 @@ declare namespace API {
         size: number;
         total: number;
     };
+    type User = {
+        createdAt: Date;
+        updatedAt: Date;
+        id: number;
+        department: string;
+        name: string;
+        username: string;
+        email: string;
+        phone: string;
+        position: string;
+    };
 
     type PageParams<T = any> = {
         limit?: number;

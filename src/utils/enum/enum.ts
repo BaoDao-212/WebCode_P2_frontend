@@ -16,6 +16,12 @@ export enum ResultEnum {
     TIMEOUT = 10042,
     TYPE = 'success'
 }
+export enum LanguageEnum {
+    Cpp = 'Cpp',
+    C = 'C',
+    Python = 'Python',
+    Java = 'Java'
+}
 
 export enum RequestEnum {
     GET = 'GET',

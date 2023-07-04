@@ -6,7 +6,6 @@ import { useRouter } from 'vue-router';
 import { useUserStore } from '@/stores/user';
 import to from '@/utils/awaitTo';
 import { useToast } from 'primevue/usetoast';
-import IDE from '@/components/IDE.vue';
 const { layoutConfig } = useLayout();
 const toast = useToast();
 const router = useRouter();
@@ -39,6 +38,15 @@ const handleSubmit = async () => {
 const logoUrl = computed(() => {
     return `layout/images/${layoutConfig.darkTheme.value ? 'logo-white' : 'logo-dark'}.svg`;
 });
+const callback = (response) => {
+    // This callback will be triggered when the user selects or login to
+    // his Google account from the popup
+    console.log('Handle the response', response);
+    console.log(response.credential);
+    userStore.setToken(response.credential);
+    router.push('/');
+    toast.add({ severity: 'info', summary: 'Info Message', detail: 'Login successful!' });
+};
 </script>
 
 <template>
@@ -61,13 +69,16 @@ const logoUrl = computed(() => {
                         <label for="password1" class="block text-900 font-medium text-xl mb-2">Password</label>
                         <Password id="password1" v-model="state.formInline.password" placeholder="Password" :toggleMask="true" class="w-full mb-3" inputClass="w-full" inputStyle="padding:1rem"></Password>
 
-                        <Button label="Sign In" class="w-full p-3 text-xl" @click="handleSubmit()"></Button>
+                        <Button label="Sign In" class="w-full p-3 text-xl mb-2" @click="handleSubmit()"></Button>
+                    </div>
+                    <div class="flex justify-content-center m-1">
+                        <Button label="Register" icon="pi pi-user" class="w-full mr-1" @click="handleSubmit()" outlined text raised severity="secondary"></Button>
+                        <GoogleLogin :callback="callback" prompt auto-login class="ml-1" />
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <IDE />
     <AppConfig simple />
 </template>
 
