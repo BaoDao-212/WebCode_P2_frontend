@@ -8,4 +8,7 @@ declare namespace API {
         exercise: Object;
         answer: string;
     };
+    type DetailLessonOutput = {
+        lêsson: API.Lesson;
+    };
 }

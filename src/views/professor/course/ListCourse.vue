@@ -1,10 +1,10 @@
 <script setup>
-import { listCourseProfessor } from '@/api/course';
-import { ref, onBeforeMount, reactive } from 'vue';
+import { listCourseProfessor, updateCourse } from '@/api/course';
+import { ref, onMounted, reactive } from 'vue';
 
 const products = ref(null);
 
-onBeforeMount(async () => {
+onMounted(async () => {
     const data = await listCourseProfessor();
     products.value = data.course;
 });
@@ -21,21 +21,12 @@ const formatPercent = (v1, v2) => {
 };
 // hiển thị phần hành động của bảng khóa học cho giáo viên
 import { useToast } from 'primevue/usetoast';
-import { useRouter } from 'vue-router';
 import { LanguageEnum } from '@/utils/enum/enum';
 import { Delta } from '@vueup/vue-quill';
-
 const toast = useToast();
-const router = useRouter();
-const createLesson = () => {
-    console.log('oke');
-};
-
 const visible = ref(false);
 //
-const detail = (data) => {
-    console.log(data);
-};
+
 const dropdownItems = ref();
 dropdownItems.value = [LanguageEnum.Cpp, LanguageEnum.C, LanguageEnum.Java, LanguageEnum.Python];
 
@@ -47,12 +38,15 @@ const formInline = reactive({
     time: 0
 });
 
-const update = () => {
+const update = async () => {
     if (!formInline.name || !formInline.description) return toast.add({ severity: 'warn', summary: 'Warn Message', detail: 'Please enter name and desciption of the course' });
     if (formInline.time == 0) return toast.add({ severity: 'warn', summary: 'Warn Message', detail: 'Please enter estimated total time for the course' });
     if (formInline.numberLesson == 0) return toast.add({ severity: 'warn', summary: 'Warn Message', detail: 'Please select number lesson of the course' });
     if (!formInline.language) return toast.add({ severity: 'warn', summary: 'Warn Message', detail: 'Please select language of the course' });
-    toast.add({ severity: 'info', summary: 'Info Message', detail: 'Creating in...' });
+    toast.add({ severity: 'info', summary: 'Info Message', detail: 'Updating in...' });
+    const res = await updateCourse(formInline);
+    if (res.ok) toast.add({ severity: 'info', summary: 'Info Message', detail: 'Course is updated' }, 2000);
+    else toast.add({ severity: 'info', summary: 'Info Message', detail: `${res.error.message}` }, 2000);
     // hàm update course sẽ thêm vào chỗ này
     formInline.name = '';
     formInline.description = '';
@@ -102,7 +96,9 @@ const buttonUpdateClick = (course) => {
                     <router-link :to="`/lesson/create/${data.id}`">
                         <Button class="mr-1" label="New lesson" outlined />
                     </router-link>
-                    <Button class="mr-1" label="Detail" outlined @click="detail(data)" />
+                    <router-link :to="`/course/detail/${data.id}`">
+                        <Button class="mr-1" label="Detail" outlined />
+                    </router-link>
                     <Button severity="success" label="Update" outlined @click="buttonUpdateClick(data)" />
                     <Dialog v-model:visible="visible" modal header="Header" :style="{ width: '60vw' }">
                         <div class="col-12">
@@ -134,7 +130,7 @@ const buttonUpdateClick = (course) => {
                             </div>
                         </div>
                         <template #footer>
-                            <Button label="No" icon="pi pi-times" @click="detail(data)" text />
+                            <Button label="No" icon="pi pi-times" text />
                             <Button label="Yes" icon="pi pi-check" @click="update(data)" autofocus />
                         </template>
                     </Dialog>

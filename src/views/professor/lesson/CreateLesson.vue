@@ -186,7 +186,8 @@ const postLesson = async () => {
     });
     console.log(formInline);
     const res = await createLesson(formInline);
-    if (res.ok) return toast.add({ severity: 'info', summary: 'Info Message', detail: 'The lesson has been created' });
+    if (res.ok) toast.add({ severity: 'info', summary: 'Info Message', detail: 'The lesson has been created' }, 2000);
+    else toast.add({ severity: 'Error', summary: 'Input error', detail: `${res.data.error.message}` }, 2000);
 };
 </script>
 
@@ -223,7 +224,7 @@ const postLesson = async () => {
                             :extensions="extensions"
                             :options="editorOptions"
                         />
-                        <FileUpload v-if="option == 'Media'" name="demo[]" @upload="onTemplatedUpload($event)" :multiple="true" accept=".gif,.jpg,.jpeg,.png,.mp4,.mp3,.docx,.pptx,.txt,.pdf" :maxFileSize="10000000" @select="onSelectedFiles">
+                        <FileUpload v-if="option == 'Media'" name="demo[]" @upload="onTemplatedUpload($event)" :multiple="true" accept=".gif,.jpg,.jpeg,.png,.mp4,.mp3,.docx,.pptx,.txt,.pdf" :maxFileSize="50000000" @select="onSelectedFiles">
                             <template #header="{ chooseCallback }">
                                 <div class="flex flex-wrap justify-content-between align-items-center flex-1 gap-2">
                                     <Button @click="chooseCallback()" icon="pi pi-images" rounded outlined></Button>
@@ -296,6 +297,7 @@ const postLesson = async () => {
                         <div class="text-2xl font-bold">Description</div>
                         <div class="text-xl font-medium">{{ formInline.description }}</div>
                         <div v-for="content in renderContent" :key="content">
+                            <div v-if="content.type == 'Exercise'" class="font-bold text-2xl">Exercise</div>
                             <QuillEditor v-if="content.type == 'Text' || content.type == 'Exercise'" v-model:content="content.content" theme="bubble" readOnly="true" />
                             <HighCode v-if="content.type == 'Code'" class="code my-1" :codeValue="content.content" :theme="dark" :lang="language" codeLines="true" textEditor="true" width="640px" :height="countLines(content.content)" />
                             <div v-if="content.type == 'Input Test'" class="font-bold text-2xl">Input Test</div>

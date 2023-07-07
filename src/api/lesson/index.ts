@@ -7,3 +7,9 @@ export function createLesson(data: API.CreateLessonInput) {
         data
     });
 }
+export function detailLesson(data: number) {
+    return request<BaseResponse<API.DetailCourseOutput>>({
+        url: `lesson/detail/${data}`,
+        method: 'get'
+    });
+}

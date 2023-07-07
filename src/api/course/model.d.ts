@@ -6,8 +6,18 @@ declare namespace API {
         numberLesson: number;
         time: number;
     };
+    type UpdateCouseInput = {
+        nam: string;
+        language: string;
+        description: object;
+        numberLesson: number;
+        time: number;
+    };
     type ListCourseOutput = {
         course: Course[];
+    };
+    type DetailCourseOutput = {
+        course: Course;
     };
     type Professor = {
         user: User;
