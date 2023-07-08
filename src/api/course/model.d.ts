@@ -5,6 +5,7 @@ declare namespace API {
         description: object;
         numberLesson: number;
         time: number;
+        image: object;
     };
     type UpdateCouseInput = {
         nam: string;
@@ -12,6 +13,7 @@ declare namespace API {
         description: object;
         numberLesson: number;
         time: number;
+        image: object;
     };
     type ListCourseOutput = {
         course: Course[];
@@ -39,6 +41,7 @@ declare namespace API {
         id: number;
         professor: API.Professor;
         name: string;
+        image: object;
         language: string;
         description: object;
         numberLesson: number;

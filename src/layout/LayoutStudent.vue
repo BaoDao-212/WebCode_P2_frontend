@@ -6,50 +6,32 @@ import AppMenuItem from './AppMenuItem.vue';
 const model = ref([
     {
         label: 'Home',
-        items: [{ label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/' }]
-    },
-    {
-        label: 'Prime Blocks',
         items: [
-            { label: 'Free Blocks', icon: 'pi pi-fw pi-eye', to: '/blocks', badge: 'NEW' },
-            { label: 'All Blocks', icon: 'pi pi-fw pi-globe', url: 'https://www.primefaces.org/primeblocks-vue', target: '_blank' }
-        ]
-    },
-    {
-        label: 'Utilities',
-        items: [
-            { label: 'PrimeIcons', icon: 'pi pi-fw pi-prime', to: '/utilities/icons' },
-            { label: 'PrimeFlex', icon: 'pi pi-fw pi-desktop', url: 'https://www.primefaces.org/primeflex/', target: '_blank' }
+            { label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/' },
+            {
+                label: 'Access Denied',
+                icon: 'pi pi-fw pi-lock',
+                to: '/auth/access'
+            }
         ]
     },
     {
         label: 'Pages',
         icon: 'pi pi-fw pi-briefcase',
-        to: '/pages',
         items: [
             {
-                label: 'Landing',
-                icon: 'pi pi-fw pi-globe',
-                to: '/landing'
-            },
-            {
-                label: 'Auth',
+                label: 'Course',
                 icon: 'pi pi-fw pi-user',
                 items: [
                     {
-                        label: 'Login',
+                        label: 'List Course',
                         icon: 'pi pi-fw pi-sign-in',
-                        to: '/auth/login'
+                        to: 'student/course/list'
                     },
                     {
                         label: 'Error',
                         icon: 'pi pi-fw pi-times-circle',
                         to: '/auth/error'
-                    },
-                    {
-                        label: 'Access Denied',
-                        icon: 'pi pi-fw pi-lock',
-                        to: '/auth/access'
                     }
                 ]
             },
@@ -76,44 +58,27 @@ const model = ref([
         ]
     },
     {
-        label: 'Hierarchy',
+        label: 'Personal Pages',
         items: [
             {
-                label: 'Submenu 1',
+                label: 'Profile',
                 icon: 'pi pi-fw pi-bookmark',
+                to: '/profile',
                 items: [
                     {
-                        label: 'Submenu 1.1',
-                        icon: 'pi pi-fw pi-bookmark',
-                        items: [
-                            { label: 'Submenu 1.1.1', icon: 'pi pi-fw pi-bookmark' },
-                            { label: 'Submenu 1.1.2', icon: 'pi pi-fw pi-bookmark' },
-                            { label: 'Submenu 1.1.3', icon: 'pi pi-fw pi-bookmark' }
-                        ]
+                        label: 'Change password',
+                        icon: 'pi pi-fw pi-pencil',
+                        to: '/change-password'
                     },
                     {
-                        label: 'Submenu 1.2',
-                        icon: 'pi pi-fw pi-bookmark',
-                        items: [{ label: 'Submenu 1.2.1', icon: 'pi pi-fw pi-bookmark' }]
-                    }
-                ]
-            },
-            {
-                label: 'Submenu 2',
-                icon: 'pi pi-fw pi-bookmark',
-                items: [
-                    {
-                        label: 'Submenu 2.1',
-                        icon: 'pi pi-fw pi-bookmark',
-                        items: [
-                            { label: 'Submenu 2.1.1', icon: 'pi pi-fw pi-bookmark' },
-                            { label: 'Submenu 2.1.2', icon: 'pi pi-fw pi-bookmark' }
-                        ]
+                        label: 'Detail profile',
+                        icon: 'pi pi-fw pi-pencil',
+                        to: '/details'
                     },
                     {
-                        label: 'Submenu 2.2',
-                        icon: 'pi pi-fw pi-bookmark',
-                        items: [{ label: 'Submenu 2.2.1', icon: 'pi pi-fw pi-bookmark' }]
+                        label: 'Update profile',
+                        icon: 'pi pi-fw pi-pencil',
+                        to: '/update'
                     }
                 ]
             }
@@ -128,11 +93,6 @@ const model = ref([
             <app-menu-item v-if="!item.separator" :item="item" :index="i"></app-menu-item>
             <li v-if="item.separator" class="menu-separator"></li>
         </template>
-        <li>
-            <a href="https://www.primefaces.org/primeblocks-vue/#/" target="_blank">
-                <img src="/layout/images/banner-primeblocks.png" alt="Prime Blocks" class="w-full mt-3" />
-            </a>
-        </li>
     </ul>
 </template>
 

@@ -126,22 +126,6 @@ const save = () => {
                 </div></Button
             >
             <Menu ref="menu" id="overlay_menu" :model="items" :popup="true" />
-            <!-- <button @click="onTopBarMenuButton()" class="p-link layout-topbar-button">
-                <i class="pi pi-calendar"></i>
-                <span>Calendar</span>
-            </button>
-            <button @click="onTopBarMenuButton()" class="p-link layout-topbar-button">
-                <i class="pi pi-user"></i>
-                <span>Profile</span>
-            </button>-->
-            <!-- <button @click="onSettingsClick()" class="p-link layout-topbar-button">
-                <i class="pi pi-cog"></i>
-                <span>Settings</span>
-            </button>
-            <button @click="onLogoutClick()" class="p-link layout-topbar-button">
-                <i class="pi pi-sign-out"></i>
-                <span>Logout</span>
-            </button> -->
         </div>
     </div>
 </template>

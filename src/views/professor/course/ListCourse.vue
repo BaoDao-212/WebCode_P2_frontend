@@ -23,6 +23,7 @@ const formatPercent = (v1, v2) => {
 import { useToast } from 'primevue/usetoast';
 import { LanguageEnum } from '@/utils/enum/enum';
 import { Delta } from '@vueup/vue-quill';
+import axios from 'axios';
 const toast = useToast();
 const visible = ref(false);
 //
@@ -31,6 +32,7 @@ const dropdownItems = ref();
 dropdownItems.value = [LanguageEnum.Cpp, LanguageEnum.C, LanguageEnum.Java, LanguageEnum.Python];
 
 const formInline = reactive({
+    courseId: '',
     name: '',
     description: '',
     language: '',
@@ -44,10 +46,10 @@ const update = async () => {
     if (formInline.numberLesson == 0) return toast.add({ severity: 'warn', summary: 'Warn Message', detail: 'Please select number lesson of the course' });
     if (!formInline.language) return toast.add({ severity: 'warn', summary: 'Warn Message', detail: 'Please select language of the course' });
     toast.add({ severity: 'info', summary: 'Info Message', detail: 'Updating in...' });
+    // hàm update course sẽ thêm vào chỗ này
     const res = await updateCourse(formInline);
     if (res.ok) toast.add({ severity: 'info', summary: 'Info Message', detail: 'Course is updated' }, 2000);
     else toast.add({ severity: 'info', summary: 'Info Message', detail: `${res.error.message}` }, 2000);
-    // hàm update course sẽ thêm vào chỗ này
     formInline.name = '';
     formInline.description = '';
     formInline.language = '';
@@ -55,12 +57,34 @@ const update = async () => {
     formInline.numberLesson = 0;
 };
 const buttonUpdateClick = (course) => {
+    formInline.courseId = course.id;
     formInline.name = course.name;
     formInline.description = new Delta(course.description);
     formInline.language = course.language;
     formInline.time = course.time;
+    formInline.image = course.image;
     formInline.numberLesson = course.numberLesson;
     visible.value = true;
+};
+const file = ref();
+const image = ref();
+// cập nhật ảnh giao diện
+const onSelectedFiles = async (event) => {
+    file.value = event.files[0];
+    const formData = new FormData();
+    formData.append('file', file.value);
+    formData.append('storagePath', 'image');
+    const res = await axios.post(import.meta.env.VITE_APP_BASE_API + 'upload/file', formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    });
+    if (res.data.code == 200) {
+        image.value = res.data.fileReference;
+        toast.add({ severity: 'info', summary: 'Info', detail: file.value.name + '  upload thành công', life: 3000 });
+    } else {
+        toast.add({ severity: 'error', summary: 'Error', detail: file.value.name + ' không thể upload được', life: 3000 });
+    }
 };
 </script>
 <template>
@@ -106,6 +130,34 @@ const buttonUpdateClick = (course) => {
                                 <Toast />
                                 <h1 class="text-blue-800">Update Course</h1>
                                 <div class="p-fluid formgrid grid">
+                                    <div class="field col-12 md:col-6">
+                                        <label for="Name">Avatar</label>
+                                        <FileUpload
+                                            class="col-12 flex flex-row align-items-center"
+                                            chooseIcon="pi pi-upload"
+                                            chooseLabel=" "
+                                            style="width: fit-content"
+                                            mode="advanced"
+                                            name="demo[]"
+                                            :showUploadButton="false"
+                                            :showCancelButton="false"
+                                            @upload="onTemplatedUpload($event)"
+                                            :multiple="true"
+                                            accept=".gif,.jpg,.jpeg"
+                                            :maxFileSize="10000000"
+                                            @select="onSelectedFiles"
+                                        >
+                                            <template #header="{ chooseCallback }">
+                                                <div class="flex flex-wrap justify-content-between align-items-center flex-1 gap-2">
+                                                    <Button @click="chooseCallback()" icon="pi pi-images" rounded outlined></Button>
+                                                </div>
+                                            </template>
+                                            <template #content v-if="image">
+                                                {{ image }}
+                                                <!-- <img role="presentation" :src="image.fileUrl" width="200" /> -->
+                                            </template>
+                                        </FileUpload>
+                                    </div>
                                     <div class="field col-12 md:col-6">
                                         <label for="Name">The name of the course</label>
                                         <InputText id="Name" type="text" class="py-3" placeholder="Example: Java Object Oriented Programming" v-model="formInline.name" />

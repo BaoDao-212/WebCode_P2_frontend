@@ -101,6 +101,7 @@ import TriStateCheckbox from 'primevue/tristatecheckbox';
 import VirtualScroller from 'primevue/virtualscroller';
 
 import CodeHighlight from '@/components/CodeHighlight.vue';
+import CardCourse from '@/components/CardCourse.vue';
 import BlockViewer from '@/components/BlockViewer.vue';
 
 import '@/assets/styles.scss';
@@ -138,6 +139,7 @@ app.use(VueCodemirror, {
     // ...
 });
 app.component('RunCode', RunCode);
+app.component('CardCourse', CardCourse);
 app.component('CodeHighlight', CodeHighlight);
 app.component('BlockViewer', BlockViewer);
 

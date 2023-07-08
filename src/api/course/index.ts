@@ -20,6 +20,13 @@ export function listCourseProfessor() {
         method: 'get'
     });
 }
+export function listCourse() {
+    return request<BaseResponse<API.ListCourseOutput>>({
+        url: 'course/list',
+        method: 'get'
+        
+    });
+}
 export function detailCourse(data: number) {
     return request<BaseResponse<API.DetailCourseOutput>>({
         url: `course/detail/${data}`,
