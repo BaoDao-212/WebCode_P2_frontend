@@ -46,7 +46,7 @@ export const useUserStore = defineStore({
                 const userInfo = await new Promise((resolve) => {
                     resolve(getInfo());
                 });
-                this.userInfo = userInfo;
+                Storage.set('INFO_ACCOUNT', userInfo?.user);
                 return { userInfo };
             } catch (error) {
                 return Promise.reject(error);

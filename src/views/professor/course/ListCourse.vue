@@ -33,6 +33,7 @@ dropdownItems.value = [LanguageEnum.Cpp, LanguageEnum.C, LanguageEnum.Java, Lang
 
 const formInline = reactive({
     courseId: '',
+    image: '',
     name: '',
     description: '',
     language: '',
@@ -46,12 +47,15 @@ const update = async () => {
     if (formInline.numberLesson == 0) return toast.add({ severity: 'warn', summary: 'Warn Message', detail: 'Please select number lesson of the course' });
     if (!formInline.language) return toast.add({ severity: 'warn', summary: 'Warn Message', detail: 'Please select language of the course' });
     toast.add({ severity: 'info', summary: 'Info Message', detail: 'Updating in...' });
+    if (image.value) formInline.image = image.value;
     // hàm update course sẽ thêm vào chỗ này
     const res = await updateCourse(formInline);
     if (res.ok) toast.add({ severity: 'info', summary: 'Info Message', detail: 'Course is updated' }, 2000);
     else toast.add({ severity: 'info', summary: 'Info Message', detail: `${res.error.message}` }, 2000);
     formInline.name = '';
     formInline.description = '';
+    formInline.image = '';
+    image.value = '';
     formInline.language = '';
     formInline.time = 0;
     formInline.numberLesson = 0;
@@ -63,6 +67,7 @@ const buttonUpdateClick = (course) => {
     formInline.language = course.language;
     formInline.time = course.time;
     formInline.image = course.image;
+    image.value = course.image;
     formInline.numberLesson = course.numberLesson;
     visible.value = true;
 };
@@ -80,7 +85,7 @@ const onSelectedFiles = async (event) => {
         }
     });
     if (res.data.code == 200) {
-        image.value = res.data.fileReference;
+        image.value = res.data.data.fileReference;
         toast.add({ severity: 'info', summary: 'Info', detail: file.value.name + '  upload thành công', life: 3000 });
     } else {
         toast.add({ severity: 'error', summary: 'Error', detail: file.value.name + ' không thể upload được', life: 3000 });
@@ -130,10 +135,10 @@ const onSelectedFiles = async (event) => {
                                 <Toast />
                                 <h1 class="text-blue-800">Update Course</h1>
                                 <div class="p-fluid formgrid grid">
-                                    <div class="field col-12 md:col-6">
-                                        <label for="Name">Avatar</label>
+                                    <div class="col-12">
+                                        <label for="avatar">Avatar</label>
                                         <FileUpload
-                                            class="col-12 flex flex-row align-items-center"
+                                            class="justify-content-center flex flex-row align-items-center"
                                             chooseIcon="pi pi-upload"
                                             chooseLabel=" "
                                             style="width: fit-content"
@@ -152,12 +157,12 @@ const onSelectedFiles = async (event) => {
                                                     <Button @click="chooseCallback()" icon="pi pi-images" rounded outlined></Button>
                                                 </div>
                                             </template>
-                                            <template #content v-if="image">
-                                                {{ image }}
-                                                <!-- <img role="presentation" :src="image.fileUrl" width="200" /> -->
+                                            <template #content>
+                                                <img v-if="image" role="presentation" :src="image.fileUrl" width="200" />
                                             </template>
                                         </FileUpload>
                                     </div>
+
                                     <div class="field col-12 md:col-6">
                                         <label for="Name">The name of the course</label>
                                         <InputText id="Name" type="text" class="py-3" placeholder="Example: Java Object Oriented Programming" v-model="formInline.name" />

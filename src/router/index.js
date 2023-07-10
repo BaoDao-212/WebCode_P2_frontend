@@ -31,6 +31,11 @@ const router = createRouter({
                     component: () => import('@/views/professor/course/DetailCourse.vue')
                 },
                 {
+                    path: '/courseStudent/detail/:id',
+                    name: 'Detail Course Student',
+                    component: () => import('@/views/student/course/DetailCourse.vue')
+                },
+                {
                     path: '/lesson/create/:id',
                     name: 'Create Lesson',
                     component: () => import('@/views/professor/lesson/createLesson.vue')
@@ -127,63 +132,13 @@ const router = createRouter({
                             component: () => import('@/views/uikit/menu/ConfirmationDemo.vue')
                         }
                     ]
-                },
-                {
-                    path: '/uikit/message',
-                    name: 'message',
-                    component: () => import('@/views/uikit/Messages.vue')
-                },
-                {
-                    path: '/uikit/file',
-                    name: 'file',
-                    component: () => import('@/views/uikit/File.vue')
-                },
-                {
-                    path: '/uikit/charts',
-                    name: 'charts',
-                    component: () => import('@/views/uikit/Chart.vue')
-                },
-                {
-                    path: '/uikit/misc',
-                    name: 'misc',
-                    component: () => import('@/views/uikit/Misc.vue')
-                },
-                {
-                    path: '/blocks',
-                    name: 'blocks',
-                    component: () => import('@/views/utilities/Blocks.vue')
-                },
-                {
-                    path: '/utilities/icons',
-                    name: 'icons',
-                    component: () => import('@/views/utilities/Icons.vue')
-                },
-                {
-                    path: '/pages/timeline',
-                    name: 'timeline',
-                    component: () => import('@/views/pages/Timeline.vue')
-                },
-                {
-                    path: '/pages/empty',
-                    name: 'empty',
-                    component: () => import('@/views/pages/Empty.vue')
-                },
-                {
-                    path: '/pages/crud',
-                    name: 'crud',
-                    component: () => import('@/views/pages/Crud.vue')
-                },
-                {
-                    path: '/documentation',
-                    name: 'documentation',
-                    component: () => import('@/views/utilities/Documentation.vue')
                 }
             ]
         },
         {
-            path: '/landing',
-            name: 'Landing',
-            component: () => import('@/views/pages/Landing.vue')
+            path: '/lesson/code/:id',
+            name: 'Code Lesson',
+            component: () => import('@/views/student/lesson/CodeLesson.vue')
         },
         {
             path: '/pages/notfound',

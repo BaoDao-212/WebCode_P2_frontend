@@ -1,6 +1,5 @@
 <script setup>
 import { ref } from 'vue';
-
 import AppMenuItem from './AppMenuItem.vue';
 
 const model = ref([
@@ -26,7 +25,7 @@ const model = ref([
                     {
                         label: 'List Course',
                         icon: 'pi pi-fw pi-sign-in',
-                        to: 'student/course/list'
+                        to: '/student/course/list'
                     },
                     {
                         label: 'Error',

@@ -24,12 +24,32 @@ export function listCourse() {
     return request<BaseResponse<API.ListCourseOutput>>({
         url: 'course/list',
         method: 'get'
-        
     });
 }
 export function detailCourse(data: number) {
     return request<BaseResponse<API.DetailCourseOutput>>({
         url: `course/detail/${data}`,
+        method: 'get'
+    });
+}
+// course student
+export function registerCourse(data: API.RegisterCouseInput) {
+    return request({
+        url: 'courseStudent/create',
+        method: 'post',
+        data
+    });
+}
+
+export function listCourseStudent() {
+    return request<BaseResponse<API.ListCourseStudentOutput>>({
+        url: 'courseStudent/list',
+        method: 'get'
+    });
+}
+export function detailCourseStudent(courseId: number) {
+    return request<BaseResponse<API.ListCourseStudentOutput>>({
+        url: `courseStudent/detail/${courseId}`,
         method: 'get'
     });
 }

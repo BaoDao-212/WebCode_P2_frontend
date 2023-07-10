@@ -102,11 +102,13 @@ import VirtualScroller from 'primevue/virtualscroller';
 
 import CodeHighlight from '@/components/CodeHighlight.vue';
 import CardCourse from '@/components/CardCourse.vue';
+import CardTheory from '@/components/CardTheory.vue';
 import BlockViewer from '@/components/BlockViewer.vue';
 
 import '@/assets/styles.scss';
 import { setupStore } from './stores';
 import RunCode from './components/RunCode.vue';
+import CardLessonMini from './components/CardLessonMini.vue';
 import { basicSetup } from 'codemirror';
 import VueCodemirror from 'vue-codemirror';
 import vue3GoogleLogin from 'vue3-google-login';
@@ -140,6 +142,8 @@ app.use(VueCodemirror, {
 });
 app.component('RunCode', RunCode);
 app.component('CardCourse', CardCourse);
+app.component('CardTheory', CardTheory);
+app.component('CardLessonMini', CardLessonMini);
 app.component('CodeHighlight', CodeHighlight);
 app.component('BlockViewer', BlockViewer);
 

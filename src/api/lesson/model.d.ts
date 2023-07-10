@@ -9,6 +9,17 @@ declare namespace API {
         answer: string;
     };
     type DetailLessonOutput = {
-        lêsson: API.Lesson;
+        lesson: API.Lesson;
+    };
+    type CreateLessonStudentInput = {
+        courseStudentId: number;
+        lessonId: number;
+    };
+    type UpdateLessonStudentInput = {
+        codeCurrent: string;
+        lessonStudentId: number;
+    };
+    type CreateLessonStudentOutput = {
+        lessonId: string;
     };
 }

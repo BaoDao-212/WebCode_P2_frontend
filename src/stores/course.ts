@@ -1,44 +1,47 @@
 import { defineStore } from 'pinia';
-import { ACCESS_TOKEN_KEY } from '../utils/enum/enum';
-import Storage from '../utils/Storage';
-import { login } from '../api/login';
-import { getInfo, logout, register, updatePassword } from '../api/account';
 import { store } from '.';
-import { listCourse, listCourseProfessor } from '../api/course';
+import { listCourse, listCourseProfessor, listCourseStudent } from '@/api/course';
 
-interface CourseState {
-    listCourseProfessor: API.Course[];
-    listCourse: API.Course[];
-}
 export const useCourseStore = defineStore({
     id: 'Course',
-    state: (): CourseState => ({
+    state: () => ({
         listCourseProfessor: [],
-        listCourse: []
+        listCourse: [],
+        listCourseStudent: []
     }),
     getters: {
-        getListCourseProfessor(): API.Course[] {
-            return this.listCourseProfessor;
+        getListCourseProfessor: (state) => state.listCourseProfessor,
+        getListCourse: (state) => state.listCourse,
+        getListCourseStudent: (state) => state.listCourseStudent,
+        getDetailCourse: (state) => {
+            return (courseId) => state.listCourse.find((course) => course.id == courseId);
         },
-        getListCourse(): API.Course[] {
-            return this.listCourse;
+        getDetailCourseStudent: (state) => {
+            return (courseId) => state.listCourseStudent.find((cs) => cs.course.id == courseId);
         }
     },
     actions: {
         async listCourseProfessor() {
             try {
                 const data = await listCourseProfessor();
-                // this.listCourseProfessor = data.course;
-                return data.course;
+                this.listCourseProfessor = data.course;
             } catch (error) {
                 return Promise.reject(error);
             }
         },
-        async listCourse() {
+        async listAllCourse() {
             try {
                 const data = await listCourse();
                 this.listCourse = data.course;
-                return data.course;
+            } catch (error) {
+                return Promise.reject(error);
+            }
+        },
+        async listCourseOfStudent() {
+            try {
+                const [listCourseS, listC] = await Promise.all([listCourseStudent(), listCourse()]);
+                this.listCourseStudent = listCourseS.course;
+                this.listCourse = listC.course;
             } catch (error) {
                 return Promise.reject(error);
             }
