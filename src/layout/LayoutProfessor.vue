@@ -22,6 +22,11 @@ const model = ref([
                 label: 'List Course',
                 icon: 'pi pi-fw pi-list',
                 to: '/course/professor/list'
+            },
+            {
+                label: 'Student Management',
+                icon: 'pi pi-fw pi-user',
+                to: '/student/manager'
             }
         ]
     },
@@ -49,6 +54,22 @@ const model = ref([
                         to: '/update'
                     }
                 ]
+            }
+        ]
+    },
+    {
+        label: 'Source Code',
+        icon: 'pi pi-fw pi-code',
+        items: [
+            {
+                label: 'Front-end',
+                icon: 'pi pi-fw pi-users',
+                url: 'https://github.com/BaoDao-212/WebCode_P2_frontend'
+            },
+            {
+                label: 'Back-end',
+                icon: 'pi pi-fw pi-server',
+                url: 'https://github.com/BaoDao-212/WebCode_P2'
             }
         ]
     }

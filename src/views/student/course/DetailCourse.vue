@@ -3,6 +3,7 @@ import { LanguageEnum } from '@/utils/enum/enum';
 import { Delta } from '@vueup/vue-quill';
 import { useRoute, useRouter } from 'vue-router';
 import { ref, onBeforeMount } from 'vue';
+import Chart from 'primevue/chart';
 const products = ref(null);
 const route = useRoute();
 console.log(route.params.id);
@@ -17,24 +18,39 @@ const data = ref(null);
 const lessonStudents = ref(null);
 const courseStudent = ref(null);
 onBeforeMount(async () => {
-    // data.value = await courseStore.getDetailCourse(route.params.id);
     data.value = await detailCourseStudent(route.params.id);
     courseStudent.value = data.value.course;
     lessonStudents.value = data.value.course.lessonStudents;
-    const lessonRegisterId = lessonStudents.value.map((ls) => ls.lesson.id);
-    products.value = course.value.lessons.filter((lesson) => !lessonRegisterId.includes(lesson.id));
     course.value = data.value.course.course;
-    // products.value = course.value.lessons;
+    lessonStudents.value = data.value.course.lessonStudents.sort((a, b) => a.id - b.id);
+    const lessonRegisterId = lessonStudents.value.map((ls) => ls.lesson.id);
+    if (data.value.course.course && data.value.course.course.lessons.length > 0)
+        if (lessonRegisterId.length != 0) products.value = data.value.course.course.lessons.filter((lesson) => !lessonRegisterId.includes(lesson.id));
+        else products.value = data.value.course.course.lessons;
     professor.value = course.value.professor;
     description.value = new Delta(course.value.description);
+    chartData.value = setChartData();
 });
-const formatDate = (value) => {
-    const date = new Date(value);
-    return date.toLocaleDateString('en-US', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric'
-    });
+const chartData = ref();
+const chartOptions = ref({
+    cutout: '60%'
+});
+
+const setChartData = () => {
+    const documentStyle = getComputedStyle(document.body);
+    const newNone = lessonStudents.value.filter((ls) => ls.status == 'New').length + products.value.length;
+    const wrong = lessonStudents.value.filter((ls) => ls.status == 'Wrong').length;
+    const correct = lessonStudents.value.filter((ls) => ls.status == 'Correct').length;
+    return {
+        labels: ['Correct', 'Wrong', 'New/None'],
+        datasets: [
+            {
+                data: [correct, wrong, newNone],
+                backgroundColor: [documentStyle.getPropertyValue('--blue-500'), documentStyle.getPropertyValue('--red-500'), documentStyle.getPropertyValue('--green-500')],
+                hoverBackgroundColor: [documentStyle.getPropertyValue('--blue-400'), documentStyle.getPropertyValue('--yellow-400'), documentStyle.getPropertyValue('--green-400')]
+            }
+        ]
+    };
 };
 
 // hiển thị phần hành động của bảng khóa học cho giáo viên
@@ -46,7 +62,7 @@ const registerLesson = async (lessonId) => {
     if (res.ok) {
         console.log(res.lessonId);
         toast.add({ severity: 'info', summary: 'Info Message', detail: 'Welcome to new lesson' });
-        router.push(`/lesson/code/${res.lessonId}`);
+        router.push(`/lesson/code/${res.lessonStudent.id}`);
     } else {
         toast.add({ severity: 'warn', summary: `${res.error.mainReason}`, detail: `${res.error.message}` });
     }
@@ -77,8 +93,14 @@ dropdownItems.value = [LanguageEnum.Cpp, LanguageEnum.C, LanguageEnum.Java, Lang
             <QuillEditor v-model:content="description" theme="bubble" readOnly="true" />
         </template>
     </Card>
+    <div class="card flex flex-column justify-content-center">
+        <div class="flex justify-content-center">
+            <Chart type="doughnut" :data="chartData" :options="chartOptions" class="w-full md:w-30rem" />
+        </div>
+        <h4 class="flex justify-content-center text-primary-600 font-bold">Chart reports your learning progress</h4>
+    </div>
     <div class="grid">
-        <div class="card h-screen">
+        <div class="card h-screen w-screen">
             <div class="grid">
                 <div v-for="l1 in lessonStudents" :key="l1">
                     <router-link :to="`/lesson/code/${l1.id}`">

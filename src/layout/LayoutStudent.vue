@@ -19,40 +19,14 @@ const model = ref([
         icon: 'pi pi-fw pi-briefcase',
         items: [
             {
-                label: 'Course',
+                label: 'List Course',
+                icon: 'pi pi-fw pi-server',
+                to: '/student/course/list'
+            },
+            {
+                label: 'My Courses',
                 icon: 'pi pi-fw pi-user',
-                items: [
-                    {
-                        label: 'List Course',
-                        icon: 'pi pi-fw pi-sign-in',
-                        to: '/student/course/list'
-                    },
-                    {
-                        label: 'Error',
-                        icon: 'pi pi-fw pi-times-circle',
-                        to: '/auth/error'
-                    }
-                ]
-            },
-            {
-                label: 'Crud',
-                icon: 'pi pi-fw pi-pencil',
-                to: '/pages/crud'
-            },
-            {
-                label: 'Timeline',
-                icon: 'pi pi-fw pi-calendar',
-                to: '/pages/timeline'
-            },
-            {
-                label: 'Not Found',
-                icon: 'pi pi-fw pi-exclamation-circle',
-                to: '/pages/notfound'
-            },
-            {
-                label: 'Empty',
-                icon: 'pi pi-fw pi-circle-off',
-                to: '/pages/empty'
+                to: '/course/owner/list'
             }
         ]
     },
@@ -80,6 +54,27 @@ const model = ref([
                         to: '/update'
                     }
                 ]
+            }
+        ]
+    },
+    {
+        label: 'Source Code',
+        icon: 'pi pi-fw pi-code',
+        items: [
+            {
+                label: 'Front-end',
+                icon: 'pi pi-fw pi-users',
+                url: 'https://github.com/BaoDao-212/WebCode_P2_frontend'
+            },
+            {
+                label: 'Back-end',
+                icon: 'pi pi-fw pi-server',
+                url: 'https://github.com/BaoDao-212/WebCode_P2'
+            },
+            {
+                label: 'Administrator',
+                icon: 'pi pi-fw pi-facebook',
+                url: 'https://www.facebook.com/profile.php?id=100045038932626'
             }
         ]
     }

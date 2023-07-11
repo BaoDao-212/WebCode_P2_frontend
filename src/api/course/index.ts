@@ -47,6 +47,12 @@ export function listCourseStudent() {
         method: 'get'
     });
 }
+export function listCourseStudentOfProfessor(studentId: number) {
+    return request({
+        url: `courseStudent/list-course-student/${studentId}`,
+        method: 'get'
+    });
+}
 export function detailCourseStudent(courseId: number) {
     return request<BaseResponse<API.ListCourseStudentOutput>>({
         url: `courseStudent/detail/${courseId}`,

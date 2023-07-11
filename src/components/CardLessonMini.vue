@@ -13,7 +13,7 @@ const props = defineProps({
 <template>
     <Card style="width: 100px; height: 100px" class="shadow-6 m-2 border-round hover:shadow-8 border-dashed md:border-solid">
         <template #header>
-            <div class="text-orange-700 text-xs font-bold bg-cyan-200 w-4">
+            <div class="text-orange-700 text-xs font-bold bg-cyan-200 w-5 pl-1">
                 {{ props.status }}
             </div>
             <div class="bg-cyan-700 flex font-italic surface-overlay overflow-hidden text-overflow-ellipsis p-1 hover:text-500 text-900 text-center justify-content-center align-items-center">{{ props.lesson.name }}</div>

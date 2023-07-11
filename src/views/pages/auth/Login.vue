@@ -6,6 +6,8 @@ import { useRouter } from 'vue-router';
 import { useUserStore } from '@/stores/user';
 import to from '@/utils/awaitTo';
 import { useToast } from 'primevue/usetoast';
+import { getInfo } from '@/api/account';
+import Storage from '@/utils/Storage';
 const { layoutConfig } = useLayout();
 const toast = useToast();
 const router = useRouter();
@@ -38,12 +40,16 @@ const handleSubmit = async () => {
 const logoUrl = computed(() => {
     return `layout/images/${layoutConfig.darkTheme.value ? 'logo-white' : 'logo-dark'}.svg`;
 });
-const callback = (response) => {
+const callback = async (response) => {
     // This callback will be triggered when the user selects or login to
     // his Google account from the popup
     console.log('Handle the response', response);
     console.log(response.credential);
     userStore.setToken(response.credential);
+    const userInfo = await new Promise((resolve) => {
+        resolve(getInfo());
+    });
+    Storage.set('INFO_ACCOUNT', userInfo?.user);
     router.push('/');
     toast.add({ severity: 'info', summary: 'Info Message', detail: 'Login successful!' });
 };
@@ -72,7 +78,9 @@ const callback = (response) => {
                         <Button label="Sign In" class="w-full p-3 text-xl mb-2" @click="handleSubmit()"></Button>
                     </div>
                     <div class="flex justify-content-center m-1">
-                        <Button label="Register" icon="pi pi-user" class="w-full mr-1" @click="handleSubmit()" outlined text raised severity="secondary"></Button>
+                        <router-link to="/auth/register">
+                            <Button label="Register" icon="pi pi-user" class="w-full mr-1" outlined text raised severity="secondary"></Button>
+                        </router-link>
                         <GoogleLogin :callback="callback" prompt auto-login class="ml-1" />
                     </div>
                 </div>

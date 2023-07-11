@@ -53,7 +53,7 @@ const render = () => {
     }
 };
 // IDE code
-const code = ref(`//IDE code`);
+const code = ref(``);
 const language = 'Java';
 const extensions = ref();
 if (language == 'Java') {
@@ -288,7 +288,7 @@ const postLesson = async () => {
                 <Button raised icon="pi pi-angle-double-left " label="Back" class="p-button-info" outlined @click="backRender" />
             </div>
         </div>
-        <div class="col-12 md:col-6">
+        <div class="col-12 md:col-6 overflow-y-scroll h-screen">
             <div class="card">
                 <h1 class="text-blue-800">Render Lesson</h1>
                 <div class="p-fluid formgrid grid">

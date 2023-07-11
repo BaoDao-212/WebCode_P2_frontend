@@ -15,7 +15,7 @@
         "@codemirror/theme-one-dark": "^6.1.2",
         "@vueup/vue-quill": "^1.2.0",
         "axios": "^1.4.0",
-        "chart.js": "3.3.2",
+        "chart.js": "^3.3.2",
         "codemirror": "^6.0.1",
         "highlight.js": "^11.8.0",
         "nprogress": "^1.0.0-1",

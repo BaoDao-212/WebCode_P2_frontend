@@ -36,3 +36,22 @@ export function register(data: API.RegisterParams) {
         data
     });
 }
+export function listUser() {
+    return request({
+        url: 'auth/list',
+        method: 'get'
+    });
+}
+export function listStudent() {
+    return request({
+        url: 'student/list',
+        method: 'get'
+    });
+}
+export function createStudent(data: API.CreateStudentInput) {
+    return request({
+        url: 'student/create',
+        method: 'post',
+        data
+    });
+}

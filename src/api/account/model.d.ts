@@ -22,4 +22,8 @@ declare namespace API {
         newPassword: string;
         confirmNewPassword: string;
     };
+    type CreateStudentInput = {
+        userId: number;
+        class: string;
+    };
 }
