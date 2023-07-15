@@ -12,9 +12,16 @@
         "allowSyntheticDefaultImports": true,
         "resolveJsonModule": true,
         "noEmit": true,
-        "types": ["vite/client", "@vue/runtime-core", "@vue/test-utils", "jest"],
+        "types": [
+            "vite/client",
+            "@vue/runtime-core",
+            "@vue/test-utils",
+            "jest"
+        ],
         "paths": {
-            "@/*": ["./*"]
+            "@/*": [
+                "./*"
+            ]
         }
     },
     "include": [
@@ -24,5 +31,8 @@
         "**/*.tsx",
         "**/*.vue"
     ],
-    "exclude": ["dist", "node_modules"]
+    "exclude": [
+        "dist",
+        "node_modules"
+    ]
 }

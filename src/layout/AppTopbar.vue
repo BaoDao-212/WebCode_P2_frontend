@@ -5,6 +5,8 @@ import { useRouter } from 'vue-router';
 import { useUserStore } from '../stores/user';
 import ChangePassword from '../views/account/change-password.vue';
 import Dialog from 'primevue/dialog';
+import Storage from '../utils/Storage';
+import { getInfo } from '../api/account';
 const { layoutConfig, onMenuToggle } = useLayout();
 
 const outsideClickListener = ref(null);
@@ -71,7 +73,7 @@ const items = ref([
     {
         label: 'Profile',
         icon: 'pi pi-user',
-        command: () => {}
+        command: () => { }
     },
     {
         label: 'Change Password',
@@ -99,32 +101,38 @@ const toggle = (event) => {
 const save = () => {
     toast.add({ severity: 'success', summary: 'Success', detail: 'Data Saved', life: 3000 });
 };
+
+const userData = Storage.get('INFO_ACCOUNT', null);
+const userName = userData.name;
+
 </script>
 
 <template>
     <div class="layout-topbar">
+        <button class="p-link layout-menu-button layout-topbar-button" style="margin: unset;" @click="onMenuToggle()">
+            <i class="pi pi-bars"></i>
+        </button>
         <router-link to="/" class="layout-topbar-logo">
             <img :src="logoUrl" alt="logo" />
             <span>WEBCODE</span>
         </router-link>
 
-        <button class="p-link layout-menu-button layout-topbar-button" @click="onMenuToggle()">
-            <i class="pi pi-bars"></i>
-        </button>
-
         <button class="p-link layout-topbar-menu-button layout-topbar-button" @click="onTopBarMenuButton()">
             <i class="pi pi-ellipsis-v"></i>
         </button>
+
         <Dialog v-model:visible="visible" maximizable modal :header="labelModel" :style="{ width: '50vw' }">
             <ChangePassword></ChangePassword>
         </Dialog>
         <div class="layout-topbar-menu" :class="topbarMenuClasses">
-            <Button class="w-full p-link flex align-items-center p-2 pl-3 text-color hover:surface-200 border-noround" @click="toggle" aria-haspopup="true" aria-controls="overlay_menu">
-                <Avatar icon="pi pi-user" class="mr-2" size="large" style="background-color: #2196f3; color: #ffffff" shape="circle" />
+            <Button class="w-full p-link flex align-items-center p-2 pl-3 text-color hover:surface-200 border-noround"
+                @click="toggle" aria-haspopup="true" aria-controls="overlay_menu">
+                <Avatar icon="pi pi-user" class="mr-2" size="large" style="background-color: #2196f3; color: #ffffff"
+                    shape="circle" />
                 <div class="flex flex-column align">
-                    <span class="font-bold">Amy Elsner</span>
-                </div></Button
-            >
+                    <span class="font-bold">{{ userName }}</span>
+                </div>
+            </Button>
             <Menu ref="menu" id="overlay_menu" :model="items" :popup="true" />
         </div>
     </div>
@@ -143,8 +151,11 @@ const save = () => {
 .dropdown-item:hover {
     background-color: #f5f5f5;
 }
+
 .dropdown .p-dropdown-trigger {
-    border: none; /* Xóa border xung quanh dropdown */
-    box-shadow: none; /* Xóa shadow xung quanh dropdown */
+    border: none;
+    /* Xóa border xung quanh dropdown */
+    box-shadow: none;
+    /* Xóa shadow xung quanh dropdown */
 }
 </style>
