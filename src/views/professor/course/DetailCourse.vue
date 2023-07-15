@@ -47,6 +47,7 @@ const registerCourseStudent = async () => {
     else toast.add({ severity: 'error', summary: `${data.error.mainReason}`, detail: `${data.error.message}` });
     await courseStore.listCourseStudent();
 };
+
 </script>
 <template>
     <Toast />
