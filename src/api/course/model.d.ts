@@ -75,4 +75,15 @@ declare namespace API {
     type ListCourseStudentOutput = {
         course: API.CourseStudent[];
     };
+    type ListOverviewNotitiaWebOutput = {
+        courseStudent?: CourseStudent[];
+        course?: Course[];
+        numberCourse?: number;
+        numberStudent?: number;
+        numberNewStudent?: number;
+        numberCourseStudent?: number;
+        numberNewCourseStudent?: number;
+        numberLesson?: number;
+        numberNewLesson?: number;
+    };
 }
