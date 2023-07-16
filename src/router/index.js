@@ -74,7 +74,22 @@ const router = createRouter({
                     path: '/',
                     name: 'dashboard',
                     component: () => import('@/views/Dashboard.vue')
-                }
+                },
+                {
+                    path: '/change-password',
+                    name: 'Change Password',
+                    component: () => import('@/views/account/change-password.vue')
+                },
+                {
+                    path: '/details',
+                    name: 'Detail Profile',
+                    component: () => import('@/views/account/detail-profile.vue')
+                },
+                {
+                    path: '/update',
+                    name: 'Update Profile',
+                    component: () => import('@/views/account/update-profile.vue')
+                },
             ]
         },
         {

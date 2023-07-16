@@ -1,9 +1,9 @@
-import { BaseResponse, request } from '@/utils/request';
+import { BaseResponse, request } from '../../utils/request';
 
 export function updateAccountInfo(data: any) {
     return request<BaseResponse<any>>({
-        url: 'account/update',
-        method: 'post',
+        url: 'account/change-profile',
+        method: 'put',
         data
     });
 }

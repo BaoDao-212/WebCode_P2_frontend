@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import { ACCESS_TOKEN_KEY } from '../utils/enum/enum';
 import Storage from '../utils/Storage';
 import { login } from '../api/login';
-import { getInfo, logout, register, updatePassword } from '../api/account';
+import { getInfo, logout, register, updatePassword, updateAccountInfo } from '../api/account';
 import { store } from '.';
 
 interface UserState {
@@ -60,12 +60,17 @@ export const useUserStore = defineStore({
         },
         async register(params: API.RegisterParams) {
             const r = await register(params);
-            console.log(r);
+            // console.log(r);
             return r;
         },
         async changePassword(params: API.ChangePasswordParams) {
             const r = await updatePassword(params);
-            console.log(r);
+            // console.log(r);
+            return r;
+        },
+        async changeProfile(params: any) {
+            const r = await updateAccountInfo(params);
+            // console.log(r);
             return r;
         }
     }

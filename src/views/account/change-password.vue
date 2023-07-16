@@ -38,6 +38,7 @@ export default defineComponent({
             if (!err.ok) {
                 toast.add({ severity: 'error', summary: 'Error Message', detail: err.error.message });
             } else {
+                router.push('/');
                 toast.add({ severity: 'info', summary: 'Info Message', detail: 'Change Password successful!' });
             }
             state.loading = false;
@@ -54,18 +55,38 @@ export default defineComponent({
 <template>
     <Toast />
     <!-- <Dialog v-model:visible="visible" maximizable modal header="Change-Password" :style="{ width: '50vw' }"> -->
-    <div class="flex flex-column gap-2">
-        <label for="oldPassword">Old Password</label>
-        <InputText id="oldPassword" type="text" placeholder="Old Password" class="w-full" style="padding: 1rem" v-model="state.formInline.oldPassword" />
+    <div id="changepw-container">
+        <div class="flex flex-column gap-2">
+            <label for="oldPassword">
+                <p style="font-weight: bold;">Old Password</p>
+            </label>
+            <InputText id="oldPassword" type="text" class="w-full" style="padding: 1rem"
+                v-model="state.formInline.oldPassword" />
+        </div>
+        <div class="flex flex-column gap-2">
+            <label for="newPassword">
+                <p style="font-weight: bold;">New Password</p>
+            </label>
+            <InputText id="newPassword" type="text" class="w-full" style="padding: 1rem"
+                v-model="state.formInline.newPassword" />
+        </div>
+        <div class="flex flex-column gap-2">
+            <label for="confirmNewPassword">
+                <p style="font-weight: bold;">Re-enter new password</p>
+            </label>
+            <InputText id="confirmNewPassword" type="text" class="w-full" style="padding: 1rem"
+                v-model="state.formInline.confirmNewPassword" />
+        </div>
+        <Button @click="changePassword" class="p-2 m-2" label="Change" severity="success" raised />
     </div>
-    <div class="flex flex-column gap-2">
-        <label for="newPassword">New Password</label>
-        <InputText id="newPassword" type="text" placeholder="New Password" class="w-full" style="padding: 1rem" v-model="state.formInline.newPassword" />
-    </div>
-    <div class="flex flex-column gap-2">
-        <label for="confirmNewPassword">Re-enter new password</label>
-        <InputText id="confirmNewPassword" type="text" placeholder="Re-enter new password" class="w-full" style="padding: 1rem" v-model="state.formInline.confirmNewPassword" />
-    </div>
-    <Button @click="changePassword" class="p-2 m-2" label="Change" severity="success" raised />
     <!-- </Dialog> -->
 </template>
+<style scoped>
+#changepw-container {
+    height: auto;
+    background-color: #fff;
+    padding: 12px;
+    border: 1px solid #cecece;
+    border-radius: 4px;
+}
+</style>
