@@ -51,6 +51,11 @@ const router = createRouter({
                     component: () => import('@/views/professor/lesson/createLesson.vue')
                 },
                 {
+                    path: '/lesson/post/list/:id',
+                    name: 'List Post',
+                    component: () => import('@/views/post/ListPost.vue')
+                },
+                {
                     path: '/lesson/detail/:id',
                     name: 'Detail Lesson',
                     component: () => import('@/views/professor/lesson/detailLesson.vue')
@@ -89,7 +94,7 @@ const router = createRouter({
                     path: '/update',
                     name: 'Update Profile',
                     component: () => import('@/views/account/update-profile.vue')
-                },
+                }
             ]
         },
         {

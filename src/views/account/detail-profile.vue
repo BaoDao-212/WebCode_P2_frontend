@@ -1,7 +1,11 @@
+<script setup>
+import Storage from '../../utils/Storage';
+const userData = Storage.get('INFO_ACCOUNT', null);
+</script>
 <template>
     <div id="profile-container">
         <div id="info-container">
-            <p style="font-size: 28px; font-weight: bold; padding-left: 16px; margin: 16px 0;">Thông tin cá nhân</p>
+            <p style="font-size: 28px; font-weight: bold; padding-left: 16px; margin: 16px 0">Thông tin cá nhân</p>
             <div class="profile-prop">
                 <div class="profile-item1">Tên</div>
                 <div class="profile-item2">{{ userData.name }}</div>
@@ -29,13 +33,6 @@
         </div>
     </div>
 </template>
-<script setup>
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
-import Storage from '../../utils/Storage';
-
-const userData = Storage.get('INFO_ACCOUNT', null);
-
-</script>
 <style scoped>
 #profile-container {
     height: 630px;

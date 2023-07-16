@@ -16,6 +16,7 @@ import Dialog from 'primevue/dialog';
 import Dropdown from 'primevue/dropdown';
 import DynamicDialog from 'primevue/dynamicdialog';
 import FileUpload from 'primevue/fileupload';
+import Textarea from 'primevue/textarea';
 import Image from 'primevue/image';
 import InlineMessage from 'primevue/inlinemessage';
 import InputSwitch from 'primevue/inputswitch';
@@ -107,6 +108,7 @@ app.component('Row', Row);
 app.component('SelectButton', SelectButton);
 app.component('Button', Button);
 app.component('DataTable', DataTable);
+app.component('Textarea', Textarea);
 
 app.component('Tag', Tag);
 app.component('Toast', Toast);

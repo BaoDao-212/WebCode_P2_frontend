@@ -23,6 +23,7 @@ const products = ref(null);
 onBeforeMount(async () => {
     const res = await detailLessonStudent(route.params.id);
     lessonStudent.value = res.lessonStudent;
+    console.log(lessonStudent.value);
     code.value = decodeURIComponent(lessonStudent.value.codeCurrent);
     courseId.value = res.lessonStudent.lesson.course.id;
     const res2 = await detailCourseStudent(res.lessonStudent.lesson.course.id);
@@ -109,9 +110,14 @@ const registerLesson = async (lessonId) => {
     <Toast />
     <div>
         <div class="flex flex-row justify-content-between">
-            <router-link :to="`/courseStudent/detail/${courseId}`">
-                <Button icon="pi pi-backward" outlined rounded class="ml-1 hover:shadow-7"></Button>
-            </router-link>
+            <div>
+                <router-link :to="`/courseStudent/detail/${courseId}`">
+                    <Button icon="pi pi-backward" outlined class="ml-1 hover:shadow-7"></Button>
+                </router-link>
+                <router-link :to="`/lesson/post/list/${lessonStudent.lesson.id}`">
+                    <Button icon="pi pi-comments" outlined class="ml-1 hover:shadow-7"></Button>
+                </router-link>
+            </div>
             <div v-if="lessonStudents" class="flex flex-row justify-content-center m-2 overflow-auto">
                 <div v-for="(l1, index) in lessonStudents" :key="l1">
                     <router-link :to="`/lesson/code/${l1.id}`">

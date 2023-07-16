@@ -45,12 +45,12 @@ const model = ref([
                     },
                     {
                         label: 'Detail profile',
-                        icon: 'pi pi-fw pi-pencil',
+                        icon: 'pi pi-fw pi-user',
                         to: '/details'
                     },
                     {
                         label: 'Update profile',
-                        icon: 'pi pi-fw pi-pencil',
+                        icon: 'pi pi-fw pi-user-edit',
                         to: '/update'
                     }
                 ]
