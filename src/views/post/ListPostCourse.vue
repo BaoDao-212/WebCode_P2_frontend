@@ -3,7 +3,7 @@ import { onMounted, ref, watch } from 'vue';
 
 import CreatePost from '@/components/CreatePost.vue';
 import ViewPost from '@/components/post/ViewPost.vue';
-import { listPost } from '@/api/post';
+import { listPostCourse } from '@/api/post';
 import { useLayout } from '@/layout/composables/layout';
 import 'vue-highlight-code/dist/style.css';
 import { useRoute } from 'vue-router';
@@ -84,7 +84,7 @@ watch(
 );
 const posts = ref([]);
 onMounted(async () => {
-    const data = await listPost(route.params.id);
+    const data = await listPostCourse(route.params.id);
     console.log(data);
     if (data.ok) {
         posts.value = data.posts;

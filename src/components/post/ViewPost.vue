@@ -108,6 +108,7 @@ const onDowload = (content) => {
     console.log(content);
     window.location.href = content;
 };
+const first = ref(0);
 </script>
 <template>
     <div class="col-12">
@@ -133,11 +134,15 @@ const onDowload = (content) => {
                 </Galleria>
             </template>
             <template #title>
+                <span class="font-bold text-2xl flex justify-content-center text-blue-700">Lesson: {{ props.content.lesson.name }}</span>
                 <div class="flex flex-row">
                     <Avatar :src="props.content.owner.avatar" v-if="props.content.owner.avatar" class="mr-2" size="large" shape="circle" />
                     <Avatar :src="props.content.owner.avatar" icon="pi pi-user" v-else class="mr-2" size="large" shape="circle" />
                     <div>
-                        <div class="font-bold text-2xl font-light text-blue-700">{{ props.content.owner.name }}</div>
+                        <div class="font-bold text-2xl font-light text-blue-700">
+                            {{ props.content.owner.name }}
+                        </div>
+
                         <div class="text-xs text-blue-600">{{ timeString }}</div>
                     </div>
                 </div>
@@ -149,7 +154,8 @@ const onDowload = (content) => {
                 <Button @click="showComment = !showComment" icon="pi pi-book" :label="comments.length + ' Comment'" severity="info" text raised rounded style="margin-left: 0.5em" />
                 <CreateComment :postId="props.content.id" @update-message="updateMessage" />
                 <div v-if="showComment">
-                    <div v-for="comment in comments" :key="comment.owner">
+                    <Paginator v-if="comments.length > 0" v-model:first="first" :rows="6" :totalRecords="comments.length" template="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink" />
+                    <div v-for="comment in comments.slice(first, first + 6)" :key="comment.owner">
                         <ViewComment :comment="comment" :ownerid="props.content.owner.id" @update-message="updateMessage" />
                     </div>
                 </div>

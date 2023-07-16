@@ -91,6 +91,10 @@ const onSelectedFiles = async (event) => {
         toast.add({ severity: 'error', summary: 'Error', detail: file.value.name + ' không thể upload được', life: 3000 });
     }
 };
+const toggle = (event) => {
+    menu.value.toggle(event);
+};
+const menu = ref();
 </script>
 <template>
     <DataTable :value="products" dataKey="id" responsiveLayout="scroll">
@@ -116,19 +120,18 @@ const onSelectedFiles = async (event) => {
         </Column>
         <Column field="lesson" header="Lesson" :showFilterMatchModes="false" style="min-width: 12rem">
             <template #body="{ data }">
-                <ProgressBar :value="formatPercent(data.lessons.length, data.numberLesson)" :showValue="false" style="height: 0.5rem"></ProgressBar>
+                <ProgressBar :value="formatPercent(data.lessons.length, data.numberLesson)" :showValue="false" style="height: 1rem"></ProgressBar>
             </template>
         </Column>
         <Column field="action" header="Action" :showFilterMatchModes="false" style="min-width: 13rem" class="">
-            <template #body="{ data }">
+            <template #body="slotProps">
                 <div>
-                    <router-link :to="`/lesson/create/${data.id}`">
-                        <Button class="mr-1" label="New lesson" outlined />
-                    </router-link>
-                    <router-link :to="`/course/detail/${data.id}`">
-                        <Button class="mr-1" label="Detail" outlined />
-                    </router-link>
-                    <Button severity="success" label="Update" outlined @click="buttonUpdateClick(data)" />
+                    <div class="flex flex-row">
+                        <router-link :to="`/course/detail/${slotProps.data.id}`">
+                            <Button icon="pi pi-list" class="mr-1" label="Detail" raised outlined/>
+                        </router-link>
+                        <Button class="pi pi-file-edit" label="Update" @click="buttonUpdateClick(slotProps.data)" outlined/>
+                    </div>
                     <Dialog v-model:visible="visible" modal header="Header" :style="{ width: '60vw' }">
                         <div class="col-12">
                             <div class="card">

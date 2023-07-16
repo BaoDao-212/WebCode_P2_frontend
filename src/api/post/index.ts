@@ -22,6 +22,12 @@ export function listPost(lessonId: number) {
         method: 'get'
     });
 }
+export function listPostCourse(courseId: number) {
+    return request<BaseResponse<any>>({
+        url: `post/course/list/${courseId}`,
+        method: 'get'
+    });
+}
 export function deleteComment(commentId: number) {
     return request<BaseResponse<any>>({
         url: `comment/delete/${commentId}`,

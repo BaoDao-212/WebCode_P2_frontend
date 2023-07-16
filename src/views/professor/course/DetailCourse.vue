@@ -47,7 +47,6 @@ const registerCourseStudent = async () => {
     else toast.add({ severity: 'error', summary: `${data.error.mainReason}`, detail: `${data.error.message}` });
     await courseStore.listCourseStudent();
 };
-
 </script>
 <template>
     <Toast />
@@ -69,8 +68,14 @@ const registerCourseStudent = async () => {
                 <div class="font-bold text-2xl">{{ course.name }}</div>
             </div>
             <QuillEditor v-model:content="description" theme="bubble" readOnly="true" />
-            <div class="flex justify-content-end" v-if="position == 'Student'">
-                <Button icon="pi pi-spin pi-plus" width="100" raised severity="success" label="Register" @click="registerCourseStudent()"></Button>
+            <div class="flex justify-content-end">
+                <router-link v-if="position == 'Professor'" :to="`/lesson/create/${route.params.id}`">
+                    <Button class="mr-1" label="New lesson" icon="pi pi-plus" raised severity="success" />
+                </router-link>
+                <router-link :to="`/course/post/list/${route.params.id}`">
+                    <Button class="mr-1" label="Comment" icon="pi pi-comment" raised severity="success" />
+                </router-link>
+                <Button v-if="position == 'Student'" icon="pi pi-spin pi-plus" width="100" raised severity="success" label="Register" @click="registerCourseStudent()"></Button>
             </div>
         </template>
     </Card>
@@ -100,11 +105,14 @@ const registerCourseStudent = async () => {
                 {{ slotProps.data.type ? slotProps.data.type : 'Code' }}
             </template>
         </Column>
-        <Column v-if="position == professor" field="action" header="Action" :showFilterMatchModes="false" style="min-width: 13rem" class="">
+        <Column v-if="position == 'Professor'" field="action" header="Action" :showFilterMatchModes="false" style="min-width: 13rem" class="">
             <template #body="{ data }">
                 <div class="flex flex-row">
                     <router-link :to="`/lesson/detail/${data.id}`">
-                        <Button class="mr-1" label="Detail" outlined />
+                        <Button class="mr-1" label="Detail" outlined icon="pi pi-book" severity="help" />
+                    </router-link>
+                    <router-link :to="`/lesson/post/list/${data.id}`">
+                        <Button class="mr-1" label="Discuss" outlined icon="pi pi-comments" severity="help" />
                     </router-link>
                 </div>
             </template>
