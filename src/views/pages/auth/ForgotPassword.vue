@@ -3,39 +3,34 @@ import { useLayout } from '@/layout/composables/layout';
 import { computed, reactive, ref } from 'vue';
 import AppConfig from '@/layout/AppConfig.vue';
 import { useRouter } from 'vue-router';
-import { useUserStore } from '@/stores/user';
+import { forgotPassword } from '@/api/account';
 import to from '@/utils/awaitTo';
 import { useToast } from 'primevue/usetoast';
 const { layoutConfig } = useLayout();
 const toast = useToast();
 const router = useRouter();
-const userStore = useUserStore();
+
 const state = reactive({
     loading: false,
     formInline: {
         name: '',
-        username: '',
-        position: '',
-        password: '',
-        email: '',
-        confirmPassword: ''
+        email: ''
     }
 });
 const handleSubmit = async () => {
-    const { username, password, name, email, confirmPassword } = state.formInline;
-    if (username.trim() == '' || password.trim() == '' || name.trim() == '' || email.trim() == '' || confirmPassword.trim() == '') {
+    const { name, email } = state.formInline;
+    if (name.trim() == '' || email.trim() == '') {
         return toast.add({ severity: 'warn', summary: 'Warn Message', detail: 'All input cannot be empty!' });
     }
-    toast.add({ severity: 'info', summary: 'Info Message', detail: 'Registering in...' });
+    toast.add({ severity: 'info', summary: 'Info Message', detail: 'Sending new password into my email' });
     state.loading = true;
 
-    const [err, data] = await to(userStore.register(state.formInline));
+    const [err, data] = await to(forgotPassword(state.formInline));
     if (err) {
         toast.add({ severity: 'error', summary: 'Error Message', detail: err });
     } else {
-        console.log(data);
         if (!data.ok) return toast.add({ severity: 'error', summary: 'Error Message', detail: `${data.error.message}` });
-        toast.add({ severity: 'info', summary: 'Info Message', detail: 'Register successful!' });
+        toast.add({ severity: 'info', summary: 'Info Message', detail: 'Send new password successfull!' });
         router.push('/auth/login');
     }
     state.loading = false;
@@ -56,26 +51,16 @@ dropdownItems.value = ['Professor', 'Student'];
             <div style="border-radius: 56px; padding: 0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%)">
                 <div class="w-full surface-card py-8 px-5 sm:px-8" style="border-radius: 53px">
                     <div class="text-center mb-5">
-                        <img src="/demo/images/login/avatar.png" alt="Image" height="50" class="mb-3" />
                         <div class="text-900 text-3xl font-medium mb-3">Welcome, Isabel!</div>
-                        <span class="text-600 font-medium">Register to continue</span>
+                        <span class="text-600 font-medium">Forgot password</span>
                     </div>
-
                     <div>
-                        <label for="name" class="block text-900 text-xl font-medium mb-2">Full Name</label>
-                        <InputText id="name" type="text" placeholder="Full name" class="w-full md:w-30rem mb-5" style="padding: 1rem" v-model="state.formInline.name" />
                         <label for="username" class="block text-900 text-xl font-medium mb-2">Username</label>
-                        <InputText id="username" type="text" placeholder="Username" class="w-full md:w-30rem mb-5" style="padding: 1rem" v-model="state.formInline.username" />
+                        <InputText id="username" type="text" placeholder="Username" class="w-full md:w-30rem mb-5" style="padding: 1rem" v-model="state.formInline.name" />
                         <label for="email" class="block text-900 text-xl font-medium mb-2">Email</label>
                         <InputText id="email" type="text" placeholder="Email address" class="w-full md:w-30rem mb-5" style="padding: 1rem" v-model="state.formInline.email" />
-                        <label for="password1" class="block text-900 font-medium text-xl mb-2">Password</label>
-                        <Password id="password1" v-model="state.formInline.password" placeholder="Password" :toggleMask="true" class="w-full mb-3" inputClass="w-full" inputStyle="padding:1rem"></Password>
-                        <label for="confirmPassword" class="block text-900 font-medium text-xl mb-2">Re-enter your password</label>
-                        <Password id="confirmPassword" v-model="state.formInline.confirmPassword" placeholder="Re-enter password" :toggleMask="true" class="w-full mb-3" inputClass="w-full" inputStyle="padding:1rem"></Password>
-                        <label for="confirmPassword" class="block text-900 font-medium text-xl mb-2">Position</label>
-                        <Dropdown id="state" v-model="state.formInline.position" class="w-full mb-3" :options="dropdownItems" placeholder="Select One"></Dropdown>
-                        <Button label="Register" class="w-full p-3 text-xl" @click="handleSubmit()"></Button>
                     </div>
+                    <Button label="Send" class="w-full p-3 text-xl" @click="handleSubmit()"></Button>
                 </div>
             </div>
         </div>

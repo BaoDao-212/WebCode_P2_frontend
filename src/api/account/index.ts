@@ -42,6 +42,12 @@ export function listUser() {
         method: 'get'
     });
 }
+export function listUserProfessor() {
+    return request({
+        url: 'auth/list-professor',
+        method: 'get'
+    });
+}
 export function listStudent() {
     return request({
         url: 'student/list',
@@ -53,5 +59,37 @@ export function createStudent(data: API.CreateStudentInput) {
         url: 'student/create',
         method: 'post',
         data
+    });
+}
+export function createProfessor(data: API.CreateProfessorInput) {
+    return request({
+        url: 'professor/create',
+        method: 'post',
+        data
+    });
+}
+export function forgotPassword(data: API.ForgotPasswordInput) {
+    return request({
+        url: 'auth/forgot-password',
+        method: 'post',
+        data
+    });
+}
+export function listProfessor() {
+    return request({
+        url: 'professor/list/admin',
+        method: 'get'
+    });
+}
+export function detailStudent(studentId: number) {
+    return request({
+        url: `student/details-student/${studentId}/admin`,
+        method: 'get'
+    });
+}
+export function detailProfessor(professorId: number) {
+    return request({
+        url: `professor/details-professor/${professorId}/admin`,
+        method: 'get'
     });
 }

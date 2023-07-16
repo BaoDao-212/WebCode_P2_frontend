@@ -55,7 +55,21 @@ const router = createRouter({
                     name: 'Detail Lesson',
                     component: () => import('@/views/professor/lesson/detailLesson.vue')
                 },
-
+                {
+                    path: '/admin/professor/list',
+                    name: 'Professor Managerment',
+                    component: () => import('@/views/admin/ProfessorManagerment.vue')
+                },
+                {
+                    path: '/admin/course/list',
+                    name: 'Course Managerment',
+                    component: () => import('@/views/admin/CourseManagement.vue')
+                },
+                {
+                    path: '/admin/student/list',
+                    name: 'Student Managerment',
+                    component: () => import('@/views/admin/StudentManagement.vue')
+                },
                 {
                     path: '/',
                     name: 'dashboard',
@@ -78,6 +92,11 @@ const router = createRouter({
             path: '/auth/register',
             name: 'Register',
             component: () => import('@/views/pages/auth/register.vue')
+        },
+        {
+            path: '/auth/forgot-password',
+            name: 'Forgot Password',
+            component: () => import('@/views/pages/auth/ForgotPassword.vue')
         },
         {
             path: '/landing',

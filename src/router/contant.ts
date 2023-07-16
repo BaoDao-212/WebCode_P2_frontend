@@ -2,7 +2,7 @@ export const LOGIN_NAME = 'Login';
 
 export const REGISTER = 'Register';
 
-export const FORGOT_PASS_NAME = 'ForgotPassword';
+export const FORGOT_PASS_NAME = 'Forgot Password';
 
 export const REDIRECT_NAME = 'Redirect';
 

@@ -14,15 +14,19 @@ const model = ref([
         to: '/professor',
         items: [
             {
-                label: 'Create Professor',
-                icon: 'pi pi-fw pi-plus',
-                to: '/course/create'
+                label: 'Professor Management',
+                icon: 'pi pi-fw pi-user',
+                to: '/admin/professor/list'
             },
-
             {
                 label: 'Student Management',
                 icon: 'pi pi-fw pi-user',
-                to: '/student/manager'
+                to: '/admin/student/list'
+            },
+            {
+                label: 'Course Management',
+                icon: 'pi pi-fw pi-book',
+                to: '/admin/course/list'
             }
         ]
     },

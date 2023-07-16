@@ -63,23 +63,25 @@ const callback = async (response) => {
             <div style="border-radius: 56px; padding: 0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%)">
                 <div class="w-full surface-card py-8 px-5 sm:px-8" style="border-radius: 53px">
                     <div class="text-center mb-5">
-                        <img src="/demo/images/login/avatar.png" alt="Image" height="50" class="mb-3" />
                         <div class="text-900 text-3xl font-medium mb-3">Welcome, Isabel!</div>
                         <span class="text-600 font-medium">Sign in to continue</span>
                     </div>
 
                     <div>
-                        <label for="email1" class="block text-900 text-xl font-medium mb-2">Email</label>
+                        <label for="email1" class="block text-900 text-xl font-medium mb-2">Email or Username</label>
                         <InputText id="email1" type="text" placeholder="Email address" class="w-full md:w-30rem mb-5" style="padding: 1rem" v-model="state.formInline.username" />
 
                         <label for="password1" class="block text-900 font-medium text-xl mb-2">Password</label>
                         <Password id="password1" v-model="state.formInline.password" placeholder="Password" :toggleMask="true" class="w-full mb-3" inputClass="w-full" inputStyle="padding:1rem"></Password>
 
-                        <Button label="Sign In" class="w-full p-3 text-xl mb-2" @click="handleSubmit()"></Button>
+                        <router-link to="/auth/forgot-password">
+                            <Button label="Forgot password ?" class="w-full mr-1 justify-content-start" outlined text severity="secondary"></Button>
+                        </router-link>
+                        <Button label="Sign In" class="w-full p-3 text-xl my-2" @click="handleSubmit()"></Button>
                     </div>
                     <div class="flex justify-content-center m-1">
                         <router-link to="/auth/register">
-                            <Button label="Register" icon="pi pi-user" class="w-full mr-1" outlined text raised severity="secondary"></Button>
+                            <Button label="Register" icon="pi pi-user" class="w-full mr-1" style="width: 200px !important; padding: 12px" outlined text raised severity="secondary"></Button>
                         </router-link>
                         <GoogleLogin :callback="callback" prompt auto-login class="ml-1" />
                     </div>

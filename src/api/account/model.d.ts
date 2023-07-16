@@ -26,4 +26,12 @@ declare namespace API {
         userId: number;
         class: string;
     };
+    type ForgotPasswordInput = {
+        name: number;
+        class: string;
+    };
+    type CreateProfessorInput = {
+        userId: number;
+        academicLevel: string;
+    };
 }
